@@ -5,6 +5,7 @@ const verifyToken = require("../utils/verifyToken");
 const isAuthenticated=async(req,res,next)=>{
 
   const token=req?.headers?.authorization?.split(" ")[1] 
+  console.log({token})
   if(!token){
     res.status(401).json({
       message:"UnAuthorized"
@@ -14,7 +15,7 @@ const isAuthenticated=async(req,res,next)=>{
 
   try{
       const payload=verifyToken(token) 
-
+  
       const user=await User.findById(payload.id);
 
       if(!user){
@@ -24,7 +25,7 @@ const isAuthenticated=async(req,res,next)=>{
         return
       }
       req.user=user;
-      // console.log(req.user)
+      //  console.log(req.user)
       next();
 
   }catch(error){
