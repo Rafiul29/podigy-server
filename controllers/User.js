@@ -1,6 +1,34 @@
 const User = require("../models/User");
 const mongoose = require("mongoose");
 
+// userRoleUpdate
+const userRoleUpdate = async (req, res) => {
+  try {
+
+    const { userId, role } = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      res.status(404).json({ message: "user not found" });
+      return;
+    }
+
+    await Promise.resolve().then(async () => {
+      const user = await User.findByIdAndUpdate(
+        userId,
+        { role },
+        { new: true }
+      );
+      res.json(user);
+    });
+
+  } catch (error) {
+    res.status(400).json({
+      message: "user not found",
+    });
+  }
+};
+
+
 // get an user
 const getAnUser = async (req, res) => {
   try {
@@ -27,7 +55,7 @@ const updateAnUser = async (req, res) => {
   try {
     const { fullName, phoneNumber, email, address } = req.body;
     const userId = req.user?._id;
-    
+
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       res.status(404).json({ message: "user not found" });
       return;
@@ -82,4 +110,4 @@ const getAnAllUser = async (req, res) => {
     });
   }
 };
-module.exports = { getAnUser, deleteAnUser, updateAnUser, getAnAllUser };
+module.exports = { getAnUser, deleteAnUser, updateAnUser, getAnAllUser,userRoleUpdate };

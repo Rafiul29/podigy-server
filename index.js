@@ -34,9 +34,9 @@ mongoose.connect(dbConfig.url, {
 });
 
 
-// import and use the  routes files
+//import and use the  routes files
 app.use('/api/auth/public',authRoutes)
-app.use('/api/users/privet',userRoutes);
+app.use('/api/users/private',userRoutes);
 
 
 
