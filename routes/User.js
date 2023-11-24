@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-const {isAuthenticated}=require("../middlewares/isAuthenticated")
+const isAuthenticated=require("../middlewares/isAuthenticated")
+const isAdmin=require("../middlewares/isAdmin")
 const {getAnUser,deleteAnUser,updateAnUser,getAnAllUser}=require("../controllers/User")
 
 
@@ -15,6 +16,6 @@ router.put("/update-profile",isAuthenticated,updateAnUser);
 router.delete("/delete-profile",isAuthenticated, deleteAnUser);
 
 // get all  an user
-router.get("/",isAuthenticated,getAnAllUser);
+router.get("/",isAuthenticated,isAdmin,getAnAllUser);
 
 module.exports = router;
