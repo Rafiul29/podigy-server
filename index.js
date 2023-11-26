@@ -5,9 +5,9 @@ const morgan=require("morgan")
 require("dotenv").config();
 const dbConfig=require("./config/database.config");
 
-
 const authRoutes=require('./routes/Auth')
-const userRoutes=require('./routes/User');
+const userRoutes=require('./routes/Users');
+const coursesRoutes=require('./routes/Courses')
 
 // express app
 const app = express();
@@ -37,8 +37,7 @@ mongoose.connect(dbConfig.url, {
 //import and use the  routes files
 app.use('/api/auth/public',authRoutes)
 app.use('/api/users/private',userRoutes);
-
-
+app.use('/api/courses/public',coursesRoutes)
 
 
 // server listen

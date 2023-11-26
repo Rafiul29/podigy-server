@@ -1,11 +1,13 @@
-const User = require("../models/User");
+const User = require("../models/Users");
 const verifyToken = require("../utils/verifyToken");
 
 
 const isAuthenticated=async(req,res,next)=>{
 
   const token=req?.headers?.authorization?.split(" ")[1] 
+
   console.log({token})
+
   if(!token){
     res.status(401).json({
       message:"UnAuthorized"
@@ -27,7 +29,6 @@ const isAuthenticated=async(req,res,next)=>{
       req.user=user;
       //  console.log(req.user)
       next();
-
   }catch(error){
     res.status(401).json({
       message:"UnAuthorized"
