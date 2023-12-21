@@ -1,7 +1,7 @@
 const mongoose=require("mongoose");
 
 const courseSchema=new mongoose.Schema({
-  user:{
+  userId:{
     type:mongoose.Schema.Types.ObjectId,
     required:true,
     ref:"User",
@@ -11,6 +11,10 @@ const courseSchema=new mongoose.Schema({
     required:true
   },
   description:{
+    type:String,
+    required:true,
+  },
+  instructor:{
     type:String,
     required:true,
   },
@@ -26,20 +30,35 @@ const courseSchema=new mongoose.Schema({
     type:Number,
     required:true,
   },
-  instructor:{
-    type:String,
-    required:true,
-  },
   duration:{
     type:Number,
     required:true,
   },
+  whatYouWillLearns:[
+    {
+      type:String,
+    }
+  ],
+  thisCourseIncludes:[
+    {
+      type:String,
+    }
+  ],
+  requirements:[
+    {
+      type:String,
+    }
+  ],
   rating:{
     type:Number,
     required:true,
   },
-  numberOfStudents:{
+  students:{
     type:Number,
+    required:true,
+  },
+  helpLines:{
+    type:String,
     required:true,
   },
 },{timestamps:true})
