@@ -11,6 +11,8 @@ const coursesRoutes=require('./routes/Courses')
 const courseLearnRoutes=require('./routes/courseLearns')
 const courseInculesRoutes=require('./routes/courseIncludes')
 const courseRequirementRoutes=require("./routes/coursesRequirement");
+
+const stripeRoutes=require('./routes/Stripe');
 // express app
 const app = express();
 
@@ -37,12 +39,13 @@ mongoose.connect(dbConfig.url, {
 
 
 //import and use the  routes files
-app.use('/api/auth/public',authRoutes)
+app.use('/api/auth/public',authRoutes);
 app.use('/api/users/private',userRoutes);
-app.use('/api/courses/private',coursesRoutes)
-app.use('/api/coures/private/learn',courseLearnRoutes)
-app.use('/api/coures/private/includes',courseInculesRoutes)
-app.use('/api/coures/private/requirement',courseRequirementRoutes)
+app.use('/api/courses/private',coursesRoutes);
+app.use('/api/courses/private/learn',courseLearnRoutes);
+app.use('/api/courses/private/includes',courseInculesRoutes);
+app.use('/api/courses/private/requirement',courseRequirementRoutes);
+app.use('/api/stripe',stripeRoutes);
 
 // server listen
 const PORT=process.env.PORT || 4000;
