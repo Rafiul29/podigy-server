@@ -8,6 +8,7 @@ const dbConfig=require("./config/database.config");
 const authRoutes=require('./routes/Auth')
 const userRoutes=require('./routes/Users');
 const coursesRoutes=require('./routes/Courses')
+const learnRoutes=require('./routes/learn')
 
 // express app
 const app = express();
@@ -38,7 +39,7 @@ mongoose.connect(dbConfig.url, {
 app.use('/api/auth/public',authRoutes)
 app.use('/api/users/private',userRoutes);
 app.use('/api/courses/private',coursesRoutes)
-
+app.use('/api/coures/private/learn',learnRoutes)
 
 // server listen
 const PORT=process.env.PORT || 4000;

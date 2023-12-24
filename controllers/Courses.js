@@ -1,17 +1,21 @@
-const { default: mongoose } = require('mongoose');
 const Course=require('../models/Courses');
-const Courses = require('../models/Courses');
 
 
 // create a single course
 const createSingleCourse=async(req,res)=>{
   const userId = req.user?._id;
+  const {title,description,instructor,coverPhoto,video_link,price,duration,rating,students,helpLines}=req.body;
+  if (!title || !description || !instructor || !coverPhoto || !video_link || !price || !duration || !rating || !students || !helpLines) {
+    res.json({message:"Must filled the title, description,instructor,coverphoto, video_link price duration rating students helplines"});
+    return;
+  }
+
   try {
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       res.status(404).json({ message: "User Not found" });
       return;
     }
-const title=req.body.title;
+  const title=req.body.title;
     //CoursesExitsts
     const courseExitsts=await Course.find({title});
     
@@ -106,10 +110,13 @@ const getAllCourses=async(req,res)=>{
   }
 }
 
+
+
+
 module.exports={
   createSingleCourse,
   updateCourses,
   getSingleCourse,
   deleteSingleCourse,
-  getAllCourses
+  getAllCourses,
 }

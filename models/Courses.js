@@ -36,7 +36,7 @@ const courseSchema=new mongoose.Schema({
   },
   whatYouWillLearns:[
     {
-      type:String,
+      text:String,
     }
   ],
   thisCourseIncludes:[

@@ -10,10 +10,10 @@ const {createSingleCourse,updateCourses,getSingleCourse,deleteSingleCourse,getAl
 router.post('/',isAuthenticated,isAdmin,createSingleCourse);
 
 // update a course
-router.put('/:cid',isAuthenticated,isAdmin,updateCourses);
+// router.put('/:cid',isAuthenticated,isAdmin,updateCourses);
 
 // delete  a course
-router.delete('/:cid',deleteSingleCourse);
+// router.delete('/:cid',isAuthenticated,isAdmin,deleteSingleCourse);
 
 // get a single course
 router.get('/:cid',getSingleCourse);

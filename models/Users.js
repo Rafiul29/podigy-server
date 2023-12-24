@@ -56,8 +56,7 @@ UserSchema.statics.register = async function (
   if (!fullName || !phoneNumber || !email || !password || !address) {
     throw new Error("Must fill name, email,password,phone number and address");
   }
-  console.log(fullName, phoneNumber, email, password, address);
-  
+ 
   const existingUser = await this.findOne({ email });
 
   if (existingUser) {

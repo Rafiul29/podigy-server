@@ -1,9 +1,9 @@
 const User = require("../models/Users");
 
-const isAdmin=async(req,res,next)=>{
+const isAdminOrDev=async(req,res,next)=>{
   const userId = req.user?._id;
   const user=await User.findOne(userId);
-          if(user?.role==="admin"){
+          if(user?.role==="admin" || user?.role==="dev"){
             next();
           }else{
             res.status(403).json({
@@ -13,4 +13,4 @@ const isAdmin=async(req,res,next)=>{
           }
   }
   
-  module.exports=isAdmin;
+  module.exports=isAdminOrDev;
