@@ -1,7 +1,7 @@
 const Course=require('../models/Courses');
 
 
-const addCoursesLearn=async(req,res)=>{
+const addCourseLearn=async(req,res)=>{
   const {courseId,text}=req.body;
 if(!text){
   res.json({message:"filed must be fill"});
@@ -29,7 +29,7 @@ if(!text){
 
 
 
-const deleteCoursesLearn=async(req,res)=>{
+const deleteCourseLearn=async(req,res)=>{
   const {learnId,cid}=req.body;
   // const cid= req.params.cid
  console.log(learnId,cid)
@@ -46,7 +46,7 @@ const deleteCoursesLearn=async(req,res)=>{
 
   } catch (error) {
     res.status(400).json({
-      message: "courses  whatYouWillLearns filed update not successfull",
+      message: "courses deleteCourseRequiremcourseent whatYouWillLearns filed update not successfull",
       error: error.message,
     });
   }
@@ -54,6 +54,6 @@ const deleteCoursesLearn=async(req,res)=>{
 
 
 module.exports={
-  addCoursesLearn,
-  deleteCoursesLearn,
+  addCourseLearn,
+  deleteCourseLearn,
 }

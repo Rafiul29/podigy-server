@@ -3,18 +3,17 @@ const router = express.Router();
 
 const isAuthenticated = require("../middlewares/isAuthenticated");
 
-const isAdmin = require("../middlewares/isAdmin");
 const isAdminOrDev=require("../middlewares/isAdminOrDev")
 
 const {
-  addCoursesLearn,
-  deleteCoursesLearn,
-} = require("../controllers/learn");
+ addCourseIncludes,
+ deleteCourseInclues
+} = require("../controllers/courseIncludes");
 
 // add new item
-router.put("/add",isAuthenticated,isAdminOrDev,addCoursesLearn);
+router.put("/add",isAuthenticated,isAdminOrDev,addCourseIncludes);
 
 // delete a item
-router.delete("/delete",deleteCoursesLearn);
+router.delete("/delete",isAuthenticated,isAdminOrDev,deleteCourseInclues);
 
 module.exports = router;

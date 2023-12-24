@@ -41,12 +41,12 @@ const courseSchema=new mongoose.Schema({
   ],
   thisCourseIncludes:[
     {
-      type:String,
+      text:String,
     }
   ],
   requirements:[
     {
-      type:String,
+      text:String,
     }
   ],
   rating:{
