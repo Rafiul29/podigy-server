@@ -39,6 +39,8 @@ const addCourseIncludes = async (req, res) => {
 const deleteCourseInclues = async (req, res) => {
   const { incluesId, cid } = req.body;
 
+  
+
   try {
     await Promise.resolve().then(async () => {
       await Course.findOneAndUpdate(

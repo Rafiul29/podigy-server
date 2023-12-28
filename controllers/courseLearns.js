@@ -43,7 +43,14 @@ const addCourseLearn = async (req, res) => {
 
 const deleteCourseLearn = async (req, res) => {
   const { learnId, cid } = req.body;
+  const vaildcourse = await Course.find({ _id: cid });
+  const userId = req.user?._id;
 
+  if (vaildcourse[0]?.userId.toString() !== userId.toString()) {
+    res.status(400).json({ message: "permission denied" });
+    return;
+  }
+  
   try {
     await Promise.resolve().then(async () => {
       await Course.findOneAndUpdate(
