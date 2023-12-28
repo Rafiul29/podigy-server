@@ -6,13 +6,16 @@ const addCourseRequirement = async (req, res) => {
     res.json({ message: "filed must be fill" });
     return;
   }
+
   const vaildcourse = await Course.find({ _id: courseId });
+
   const userId = req.user?._id;
 
   if (vaildcourse[0]?.userId.toString() !== userId.toString()) {
     res.status(400).json({ message: "permission denied" });
     return;
   }
+
   try {
     await Promise.resolve().then(async () => {
       const course = await Course.findByIdAndUpdate(
@@ -39,6 +42,14 @@ const addCourseRequirement = async (req, res) => {
 const deleteCourseRequirement = async (req, res) => {
   const { requirementId, cid } = req.body;
 
+  const vaildcourse = await Course.find({ _id: cid });
+  
+  const userId = req.user?._id;
+
+  if (vaildcourse[0]?.userId.toString() !== userId.toString()) {
+    res.status(400).json({ message: "permission denied" });
+    return;
+  }
   try {
     await Promise.resolve().then(async () => {
       await Course.findOneAndUpdate(
