@@ -3,7 +3,7 @@ const router = express.Router();
 
 const isAuthenticated=require("../middlewares/isAuthenticated")
 const isAdmin=require("../middlewares/isAdmin")
-const {getAnUser,deleteAnUser,updateAnUser,getAnAllUser,userRoleUpdate}=require("../controllers/Users")
+const {getAnUser,deleteAnUser,updateAnUser,getAnAllUser,userRoleUpdate}=require("../controllers/users")
 
 
 // user role update

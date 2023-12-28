@@ -1,16 +1,19 @@
 const express = require("express");
 const router = express.Router();
-const Order = require("../models/Order");
+const Order = require("../models/order");
 
 const {createSession}=require("../controllers/stripe.controller");
 const { default: Stripe } = require("stripe");
+const isAuthenticated = require("../middlewares/isAuthenticated");
 
 const stripe = Stripe(
   "sk_test_51N90TmCmDfnXlQ6glt0vFDaIfQiVJs7HHli4ME2hv6ulwwqTJVNcysFELhgrAT37kdIxylh67PmPpz5Bccq5dee800Rl2THMbw"
 );
 
-router.post("/create-checkout-session",createSession)
-// stripe listen --forward-to localhost:4242/webhook
+router.post("/create-checkout-session",isAuthenticated,createSession)
+
+// stripe listen --forward-to localhost:4000/api/stripe/webhook
+
 // create order function
 const createOrder = async (customer, data) => {
   const newOrder = new Order({

@@ -1,5 +1,5 @@
 const { default: mongoose } = require('mongoose');
-const Course=require('../models/Courses');
+const Course=require('../models/courses');
 
 
 // create a single course

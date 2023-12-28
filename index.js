@@ -5,14 +5,14 @@ const morgan=require("morgan")
 require("dotenv").config();
 const dbConfig=require("./config/database.config");
 
-const authRoutes=require('./routes/Auth')
-const userRoutes=require('./routes/Users');
-const coursesRoutes=require('./routes/Courses')
+const authRoutes=require('./routes/auth')
+const userRoutes=require('./routes/users');
+const coursesRoutes=require('./routes/courses')
 const courseLearnRoutes=require('./routes/courseLearns')
 const courseInculesRoutes=require('./routes/courseIncludes')
 const courseRequirementRoutes=require("./routes/coursesRequirement");
-
-const stripeRoutes=require('./routes/Stripe');
+const orderRoutes=require("./routes/order");
+const stripeRoutes=require('./routes/stripe');
 // express app
 const app = express();
 
@@ -45,6 +45,7 @@ app.use('/api/courses/private',coursesRoutes);
 app.use('/api/courses/private/learn',courseLearnRoutes);
 app.use('/api/courses/private/includes',courseInculesRoutes);
 app.use('/api/courses/private/requirement',courseRequirementRoutes);
+app.use('/api/orders/private',orderRoutes);
 app.use('/api/stripe',stripeRoutes);
 
 // server listen

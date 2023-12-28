@@ -1,4 +1,4 @@
-const Course = require("../models/Courses");
+const Course = require("../models/courses");
 
 const addCourseRequirement = async (req, res) => {
   const { courseId, text } = req.body;
@@ -43,7 +43,7 @@ const deleteCourseRequirement = async (req, res) => {
   const { requirementId, cid } = req.body;
 
   const vaildcourse = await Course.find({ _id: cid });
-  
+
   const userId = req.user?._id;
 
   if (vaildcourse[0]?.userId.toString() !== userId.toString()) {

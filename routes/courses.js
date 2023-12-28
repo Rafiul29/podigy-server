@@ -4,7 +4,7 @@ const router = express.Router();
 const isAuthenticated=require("../middlewares/isAuthenticated")
 const isAdmin=require("../middlewares/isAdmin");
 const isAdminOrDev=require("../middlewares/isAdminOrDev")
-const {createSingleCourse,updateCourses,getSingleCourse,deleteSingleCourse,getAllCourses,getAllOwnCourses}=require("../controllers/Courses")
+const {createSingleCourse,updateCourses,getSingleCourse,deleteSingleCourse,getAllCourses,getAllOwnCourses}=require("../controllers/courses")
 
 // create a new course
 router.post('/',isAuthenticated,isAdminOrDev,createSingleCourse);

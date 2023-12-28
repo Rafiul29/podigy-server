@@ -1,4 +1,4 @@
-const User = require("../models/Users");
+const User = require("../models/users");
 
 const isAdminOrDev=async(req,res,next)=>{
   const userId = req.user?._id;

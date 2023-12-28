@@ -1,4 +1,4 @@
-const Course = require("../models/Courses");
+const Course = require("../models/courses");
 
 const addCourseLearn = async (req, res) => {
   const { courseId, text } = req.body;
@@ -50,7 +50,7 @@ const deleteCourseLearn = async (req, res) => {
     res.status(400).json({ message: "permission denied" });
     return;
   }
-  
+
   try {
     await Promise.resolve().then(async () => {
       await Course.findOneAndUpdate(

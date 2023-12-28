@@ -1,5 +1,5 @@
 const Stripe = require("stripe");
-const Order = require("../models/Order");
+const Order = require("../models/order");
 
 const stripe = Stripe(
   "sk_test_51N90TmCmDfnXlQ6glt0vFDaIfQiVJs7HHli4ME2hv6ulwwqTJVNcysFELhgrAT37kdIxylh67PmPpz5Bccq5dee800Rl2THMbw"
@@ -7,10 +7,12 @@ const stripe = Stripe(
 
 const createSession = async (req, res) => {
   try {
+    console.log("comming")
+    console.log(req.user?._id)
     const { _id, price, title, description, coverPhoto } = req.body.data;
     const customer = await stripe.customers.create({
       metadata: {
-        userId:_id,
+        userId:req.user?._id,
         course:_id,
       }
     });
