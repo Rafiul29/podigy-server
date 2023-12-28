@@ -117,6 +117,22 @@ const getAllCourses=async(req,res)=>{
 }
 
 
+const getAllOwnCourses=async(req,res)=>{
+  try {
+    console.log("first")
+    const userId=req.user._id;
+    console.log(userId)
+    await Promise.resolve().then(async () => {
+      const getAllOwnCourse = await Course.find({userId:req.user._id});
+      res.json(getAllOwnCourse);
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: " courses course not found",
+      error: error.message,
+    });
+  }
+}
 
 
 module.exports={
@@ -125,4 +141,5 @@ module.exports={
   getSingleCourse,
   deleteSingleCourse,
   getAllCourses,
+  getAllOwnCourses,
 }
