@@ -1,10 +1,14 @@
+const { default: mongoose } = require('mongoose');
 const Course=require('../models/Courses');
 
 
 // create a single course
 const createSingleCourse=async(req,res)=>{
+
   const userId = req.user?._id;
+
   const {title,description,instructor,coverPhoto,video_link,price,duration,rating,students,helpLines}=req.body;
+
   if (!title || !description || !instructor || !coverPhoto || !video_link || !price || !duration || !rating || !students || !helpLines) {
     res.json({message:"Must filled the title, description,instructor,coverphoto, video_link price duration rating students helplines"});
     return;
@@ -37,14 +41,16 @@ const createSingleCourse=async(req,res)=>{
 
 // update a single course
 const updateCourses=async(req,res)=>{
-  const id=req.params.cid;
-  if (!mongoose.Types.ObjectId.isValid(id)) {
+  console.log("first")
+  const cid=req.params.cid;
+  console.log({...req.body})
+  if (!mongoose.Types.ObjectId.isValid(cid)) {
     res.status(404).json({ message: "course update not successfully" });
     return;
   }
   try {
     await Promise.resolve().then(async () => {
-      const updateCourses = await Course.findByIdAndUpdate(id,{...req.body},{new:true});
+      const updateCourses = await Course.findByIdAndUpdate({_id:cid},{...req.body},{new:true});
       res.json(updateCourses);
     });
   } catch (error) {
