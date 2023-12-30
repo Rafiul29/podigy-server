@@ -7,12 +7,11 @@ const stripe = Stripe(
 
 const createSession = async (req, res) => {
   try {
-    console.log("comming")
-    console.log(req.user?._id)
+
     const { _id, price, title, description, coverPhoto } = req.body.data;
     const customer = await stripe.customers.create({
       metadata: {
-        userId:req.user?._id,
+        id:String(req.user?._id),
         course:_id,
       }
     });

@@ -16,8 +16,9 @@ router.post("/create-checkout-session",isAuthenticated,createSession)
 
 // create order function
 const createOrder = async (customer, data) => {
+ 
   const newOrder = new Order({
-    userId: customer.metadata.userId,
+    userId: customer.metadata.id,
     customerId: data.customer,
     paymentIntentId: data.payment_intent,
     course:customer.metadata.course,
