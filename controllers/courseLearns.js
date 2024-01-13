@@ -4,9 +4,11 @@ const addCourseLearn = async (req, res) => {
   const { courseId, text } = req.body;
 
   if (!text) {
+    
     res.json({ message: "filed must be fill" });
     return;
   }
+  
   const vaildcourse = await Course.find({ _id: courseId });
   const userId = req.user?._id;
 

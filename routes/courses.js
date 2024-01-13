@@ -1,29 +1,34 @@
 const express = require("express");
 const router = express.Router();
 
-const isAuthenticated=require("../middlewares/isAuthenticated")
-const isAdmin=require("../middlewares/isAdmin");
-const isAdminOrDev=require("../middlewares/isAdminOrDev")
-const {createSingleCourse,updateCourses,getSingleCourse,deleteSingleCourse,getAllCourses,getAllOwnCourses}=require("../controllers/courses")
+const isAuthenticated = require("../middlewares/isAuthenticated");
+const isAdmin = require("../middlewares/isAdmin");
+const isAdminOrDev = require("../middlewares/isAdminOrDev");
+const {
+  createSingleCourse,
+  updateCourses,
+  getSingleCourse,
+  deleteSingleCourse,
+  getAllCourses,
+  getAllOwnCourses,
+} = require("../controllers/courses");
 
 // create a new course
-router.post('/',isAuthenticated,isAdminOrDev,createSingleCourse);
+router.post("/", isAuthenticated, isAdminOrDev, createSingleCourse);
 
 // update a course
-router.put('/:cid',isAuthenticated,isAdminOrDev,updateCourses);
+router.put("/:cid", isAuthenticated, isAdminOrDev, updateCourses);
 
 // delete  a course
-router.delete('/:cid',isAuthenticated,isAdminOrDev,deleteSingleCourse);
+router.delete("/:cid", isAuthenticated, isAdminOrDev, deleteSingleCourse);
 
 // getAllOwnCourses
-router.get("/own-courses",isAuthenticated,isAdminOrDev,getAllOwnCourses)
+router.get("/own-courses", isAuthenticated, isAdminOrDev, getAllOwnCourses);
 
 // get a single course
-router.get('/:cid',getSingleCourse);
+router.get("/:cid", getSingleCourse);
 
 // getAllcourses
-router.get('/',getAllCourses);
+router.get("/", getAllCourses);
 
-
-
-module.exports=router
+module.exports = router;

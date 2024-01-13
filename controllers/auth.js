@@ -4,7 +4,6 @@ const { generateToken } = require("../utils/generateToken");
 const userRegistration = async (req, res) => {
   try {
     const { fullName, phoneNumber, email, password, address } = req.body;
-    console.log(fullName, phoneNumber, email, password, address);
     const user = await User.register(
       fullName,
       phoneNumber,

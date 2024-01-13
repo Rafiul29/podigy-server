@@ -13,6 +13,7 @@ const addCourseIncludes = async (req, res) => {
     res.status(400).json({ message: "permission denied" });
     return;
   }
+  
   try {
     await Promise.resolve().then(async () => {
       const courseInclues = await Course.findByIdAndUpdate(

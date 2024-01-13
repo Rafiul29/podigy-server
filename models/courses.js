@@ -14,17 +14,26 @@ const courseSchema=new mongoose.Schema({
     type:String,
     required:true,
   },
-  instructor:{
+  instructor_name:{
     type:String,
     required:true,
   },
-  coverPhoto:{
+  instructor_photo:{
+    type:String,
+    required:true,
+  },
+  thumbnail:{
     type:String,
     required:true,
   },
   video_link:{
     type:String,
     required:true,
+  },
+  category:{
+    type:mongoose.Schema.Types.ObjectId,
+    required:true,
+    ref:"Category",
   },
   price:{
     type:Number,

@@ -69,7 +69,7 @@ UserSchema.statics.register = async function (
 
   if (!validator.isStrongPassword(password)) {
     throw new Error(
-      "Password must 8+ charm contains uppercase lowercase, number and special char"
+      "Password must 8+ char contains uppercase lowercase, number and special char"
     );
   }
 

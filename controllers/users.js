@@ -6,6 +6,10 @@ const userRoleUpdate = async (req, res) => {
   try {
     const { userId, role } = req.body;
     
+    if (!role) {
+      throw new Error("Must be select role");
+    }
+
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       res.status(404).json({ message: "user not found" });
       return;
@@ -22,11 +26,11 @@ const userRoleUpdate = async (req, res) => {
 
   } catch (error) {
     res.status(400).json({
-      message: "user not found",
+      message: "user  role update not succssfully",
+      error: error.message,
     });
   }
 };
-
 
 // get an user
 const getAnUser = async (req, res) => {
@@ -53,6 +57,11 @@ const getAnUser = async (req, res) => {
 const updateAnUser = async (req, res) => {
   try {
     const { fullName, phoneNumber, email, address } = req.body;
+
+    if (!fullName || !phoneNumber || !email || !address) {
+      throw new Error("Must be fill name, email,phone number and address");
+    }
+
     const userId = req.user?._id;
 
     if (!mongoose.Types.ObjectId.isValid(userId)) {
@@ -110,4 +119,10 @@ const getAnAllUser = async (req, res) => {
   }
 };
 
-module.exports = { getAnUser, deleteAnUser, updateAnUser, getAnAllUser,userRoleUpdate };
+module.exports = {
+  getAnUser,
+  deleteAnUser,
+  updateAnUser,
+  getAnAllUser,
+  userRoleUpdate,
+};
