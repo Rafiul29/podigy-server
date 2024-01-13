@@ -188,20 +188,18 @@ const getAllCourses = async (req, res) => {
   try {
     // query
     let courseQuery = Course.find();
-  ;
-    
-     //filter by name
-  if (req.query.title) {
-    courseQuery = courseQuery.find({
-      title: { $regex: req.query.title, $options: "i" },
-    });
-  }
+    //filter by name
+    if (req.query.title) {
+      courseQuery = courseQuery.find({
+        title: { $regex: req.query.title, $options: "i" },
+      });
+    }
 
-  // filter by category
-  const categoryId = req.query.categoryId;
-  if (categoryId) {
-    courseQuery = courseQuery.find({category:categoryId});
-  }
+    // filter by category
+    const categoryId = req.query.categoryId;
+    if (categoryId) {
+      courseQuery = courseQuery.find({ category: categoryId });
+    }
 
     await Promise.resolve().then(async () => {
       const getallCourses = await courseQuery.populate("category");
