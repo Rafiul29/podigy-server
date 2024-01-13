@@ -32,8 +32,8 @@ const courseSchema=new mongoose.Schema({
   },
   category:{
     type:mongoose.Schema.Types.ObjectId,
-    required:true,
     ref:"Category",
+    required:true,
   },
   price:{
     type:Number,

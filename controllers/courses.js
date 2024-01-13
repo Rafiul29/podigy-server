@@ -167,7 +167,7 @@ const deleteSingleCourse = async (req, res) => {
   }
   try {
     const course = await Course.findByIdAndDelete(id);
-console.log(course._id)
+    console.log(course._id);
     // delete category model course  id
     await Category.findOneAndUpdate(course.category, {
       $pull: {
@@ -186,8 +186,25 @@ console.log(course._id)
 // get all course
 const getAllCourses = async (req, res) => {
   try {
+    // query
+    let courseQuery = Course.find();
+  ;
+    
+     //filter by name
+  if (req.query.title) {
+    courseQuery = courseQuery.find({
+      title: { $regex: req.query.title, $options: "i" },
+    });
+  }
+
+  // filter by category
+  const categoryId = req.query.categoryId;
+  if (categoryId) {
+    courseQuery = courseQuery.find({category:categoryId});
+  }
+
     await Promise.resolve().then(async () => {
-      const getallCourses = await Course.find().populate("category");
+      const getallCourses = await courseQuery.populate("category");
       res.json(getallCourses);
     });
   } catch (error) {
@@ -202,7 +219,9 @@ const getAllOwnCourses = async (req, res) => {
   try {
     const userId = req.user._id;
     await Promise.resolve().then(async () => {
-      const getAllOwnCourse = await Course.find({ userId: req.user._id }).populate("category");
+      const getAllOwnCourse = await Course.find({
+        userId: req.user._id,
+      }).populate("category");
       res.json(getAllOwnCourse);
     });
   } catch (error) {
