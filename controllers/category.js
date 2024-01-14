@@ -5,9 +5,9 @@ const { default: mongoose } = require("mongoose");
 
 const createCategory = async (req, res) => {
   try {
-    const { name } = req.body;
+    const { name,image } = req.body;
 
-    if (!name) {
+    if (!name || !image) {
       throw new Error("Filed must be fill");
     }
 
@@ -21,6 +21,7 @@ const createCategory = async (req, res) => {
     // create category
     const category = await Category.create({
       name,
+      image,
       user: req.user?._id,
     });
     res.json(category);
@@ -68,10 +69,10 @@ const getSingleCategory = async (req, res) => {
 
 const updateSingleCategory = async (req, res) => {
   try {
-    const { name } = req.body;
+    const { name,image } = req.body;
     const cid = req.params.cid;
 
-    if (!name) {
+    if (!name || !image) {
       throw new Error("Field must be fill");
     }
     //check mogoose id
@@ -82,7 +83,7 @@ const updateSingleCategory = async (req, res) => {
     // update
     const category = await Category.findByIdAndUpdate(
       { _id: cid },
-      { name },
+      { name,image },
       { new: true }
     );
 
@@ -121,9 +122,8 @@ const deleteSingleCategory = async (req, res) => {
 };
 const getAllOwnCategories = async (req, res) => {
   try {
-    console.log("first")
     const userId = req.user._id;
-    console.log(userId)
+  
     await Promise.resolve().then(async () => {
       const getAllOwnCourse = await Category.find({ user: req.user._id });
       res.json(getAllOwnCourse);

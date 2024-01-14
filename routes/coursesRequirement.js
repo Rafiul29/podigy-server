@@ -11,7 +11,7 @@ const {
 } = require("../controllers/coursesRequirement");
 
 // add new item
-router.put("/add",isAuthenticated,isAdminOrDev,addCourseRequirement);
+router.put("/add/:cid",isAuthenticated,isAdminOrDev,addCourseRequirement);
 
 // delete a item
 router.delete("/delete",isAuthenticated,isAdminOrDev,deleteCourseRequirement);

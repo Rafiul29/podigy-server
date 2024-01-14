@@ -26,10 +26,13 @@ const courseSchema=new mongoose.Schema({
     type:String,
     required:true,
   },
-  video_link:{
-    type:String,
-    required:true,
-  },
+  videos:[
+    {
+      module:Number,
+      name:String,
+      video_link:String,
+    }
+  ],
   category:{
     type:mongoose.Schema.Types.ObjectId,
     ref:"Category",
@@ -54,6 +57,16 @@ const courseSchema=new mongoose.Schema({
     }
   ],
   requirements:[
+    {
+      text:String,
+    }
+  ],
+  whoShouldTakeThisCourse:[
+    {
+      text:String,
+    }
+  ],
+  payments:[
     {
       text:String,
     }

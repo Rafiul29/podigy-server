@@ -6,14 +6,14 @@ const isAuthenticated = require("../middlewares/isAuthenticated");
 const isAdminOrDev=require("../middlewares/isAdminOrDev")
 
 const {
- addCourseIncludes,
- deleteCourseInclues
-} = require("../controllers/courseIncludes");
+addCourseVideo,
+deleteCourseVideo
+} = require("../controllers/coursesVideos");
 
 // add new item
-router.put("/add/:cid",isAuthenticated,isAdminOrDev,addCourseIncludes);
+router.put("/add/:cid",isAuthenticated,isAdminOrDev,addCourseVideo);
 
 // delete a item
-router.delete("/delete",isAuthenticated,isAdminOrDev,deleteCourseInclues);
+router.delete("/delete",isAuthenticated,isAdminOrDev,deleteCourseVideo);
 
 module.exports = router;

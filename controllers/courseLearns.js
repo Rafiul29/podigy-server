@@ -1,15 +1,15 @@
 const Course = require("../models/courses");
 
 const addCourseLearn = async (req, res) => {
-  const { courseId, text } = req.body;
+  const { text } = req.body;
+  const {cid} = req.params;
 
   if (!text) {
-    
     res.json({ message: "filed must be fill" });
     return;
   }
-  
-  const vaildcourse = await Course.find({ _id: courseId });
+
+  const vaildcourse = await Course.find({ _id: cid });
   const userId = req.user?._id;
 
   if (vaildcourse[0]?.userId.toString() !== userId.toString()) {
@@ -21,7 +21,7 @@ const addCourseLearn = async (req, res) => {
     await Promise.resolve().then(async () => {
       const course = await Course.findByIdAndUpdate(
         {
-          _id: courseId,
+          _id: cid,
           userId: req.userId,
         },
         {

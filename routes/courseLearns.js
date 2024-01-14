@@ -12,7 +12,7 @@ const {
 } = require("../controllers/courseLearns");
 
 // add new item
-router.put("/add",isAuthenticated,isAdminOrDev,addCourseLearn);
+router.put("/add/:cid",isAuthenticated,isAdminOrDev,addCourseLearn);
 
 // delete a item
 router.delete("/delete",isAuthenticated,isAdminOrDev,deleteCourseLearn);

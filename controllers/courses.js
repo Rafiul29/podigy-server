@@ -12,7 +12,6 @@ const createSingleCourse = async (req, res) => {
     instructor_name,
     instructor_photo,
     thumbnail,
-    video_link,
     category,
     price,
     duration,
@@ -27,7 +26,6 @@ const createSingleCourse = async (req, res) => {
     !instructor_name ||
     !instructor_photo ||
     !thumbnail ||
-    !video_link ||
     !category ||
     !price ||
     !duration ||
@@ -89,7 +87,6 @@ const updateCourses = async (req, res) => {
       instructor_name,
       instructor_photo,
       thumbnail,
-      video_link,
       category,
       price,
       duration,
@@ -104,7 +101,6 @@ const updateCourses = async (req, res) => {
       !instructor_name ||
       !instructor_photo ||
       !thumbnail ||
-      !video_link ||
       !category ||
       !price ||
       !duration ||

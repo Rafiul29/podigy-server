@@ -1,12 +1,13 @@
 const Course = require("../models/courses");
 
 const addCourseIncludes = async (req, res) => {
-  const { courseId, text } = req.body;
+  const {text } = req.body;
+  const {cid}=req.params;
   if (!text) {
-    res.json({ message: "filed must be fill" });
+    res.json({ message: "filed must be filled" });
     return;
   }
-  const vaildcourse = await Course.find({ _id: courseId });
+  const vaildcourse = await Course.find({ _id: cid });
   const userId = req.user?._id;
 
   if (vaildcourse[0]?.userId.toString() !== userId.toString()) {
@@ -17,7 +18,7 @@ const addCourseIncludes = async (req, res) => {
   try {
     await Promise.resolve().then(async () => {
       const courseInclues = await Course.findByIdAndUpdate(
-        courseId,
+        cid,
         {
           $push: {
             thisCourseIncludes: {
@@ -38,7 +39,7 @@ const addCourseIncludes = async (req, res) => {
 };
 
 const deleteCourseInclues = async (req, res) => {
-  const { incluesId, cid } = req.body;
+  const { inclueId, cid } = req.body;
 
   const vaildcourse = await Course.find({ _id: cid });
   const userId = req.user?._id;
@@ -54,7 +55,7 @@ const deleteCourseInclues = async (req, res) => {
         { _id: cid },
         {
           $pull: {
-            thisCourseIncludes: { _id: incluesId },
+            thisCourseIncludes: { _id: inclueId },
           },
         }
       );

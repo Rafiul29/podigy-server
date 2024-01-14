@@ -1,15 +1,13 @@
 const Course = require("../models/courses");
 
-const addCourseRequirement = async (req, res) => {
-  const {text } = req.body;
+const addCourseVideo = async (req, res) => {
+  const { module, name, video_link } = req.body;
   const {cid}=req.params;
-  if (!text) {
+  if (!module || !name || !video_link) {
     res.json({ message: "filed must be fill" });
     return;
   }
-
   const vaildcourse = await Course.find({ _id: cid });
-
   const userId = req.user?._id;
 
   if (vaildcourse[0]?.userId.toString() !== userId.toString()) {
@@ -19,45 +17,47 @@ const addCourseRequirement = async (req, res) => {
 
   try {
     await Promise.resolve().then(async () => {
-      const course = await Course.findByIdAndUpdate(
+      const courseVideo = await Course.findByIdAndUpdate(
         cid,
         {
           $push: {
-            requirements: {
-              text,
+            videos:{
+              module,
+              name,
+              video_link,
             },
           },
         },
         { new: true }
       );
-      res.json(course);
+      res.json(courseVideo);
     });
   } catch (error) {
     res.status(400).json({
-      message: "courses incules filed  add not successfull",
+      message: "courses video filed  add",
       error: error.message,
     });
   }
 };
 
-const deleteCourseRequirement = async (req, res) => {
-  const { requirementId, cid } = req.body;
+const deleteCourseVideo = async (req, res) => {
+  const { videoId, cid } = req.body;
 
   const vaildcourse = await Course.find({ _id: cid });
-
   const userId = req.user?._id;
 
   if (vaildcourse[0]?.userId.toString() !== userId.toString()) {
     res.status(400).json({ message: "permission denied" });
     return;
   }
+
   try {
     await Promise.resolve().then(async () => {
       await Course.findOneAndUpdate(
         { _id: cid },
         {
           $pull: {
-            requirements: { _id: requirementId },
+            videos: { _id: videoId },
           },
         }
       );
@@ -66,13 +66,13 @@ const deleteCourseRequirement = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      message: "courses inclues filed delete not successfull",
+      message: "courses video filed delete",
       error: error.message,
     });
   }
 };
 
 module.exports = {
-  addCourseRequirement,
-  deleteCourseRequirement,
+  addCourseVideo,
+  deleteCourseVideo,
 };

@@ -8,6 +8,7 @@ const dbConfig = require("./config/database.config");
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/users");
 const coursesRoutes = require("./routes/courses");
+const courseVideosRoutes=require("./routes/coursesVideos")
 const courseLearnRoutes = require("./routes/courseLearns");
 const courseInculesRoutes = require("./routes/courseIncludes");
 const courseRequirementRoutes = require("./routes/coursesRequirement");
@@ -44,9 +45,10 @@ app.use("/api/auth/public", authRoutes);
 app.use("/api/users/private", userRoutes);
 app.use("/api/courses/private", coursesRoutes);
 app.use("/api/categories/private", categoriesRoutes);
-app.use("/api/courses/private/learn", courseLearnRoutes);
+app.use("/api/courses/private/videos", courseVideosRoutes);
+app.use("/api/courses/private/learns", courseLearnRoutes);
 app.use("/api/courses/private/includes", courseInculesRoutes);
-app.use("/api/courses/private/requirement", courseRequirementRoutes);
+app.use("/api/courses/private/requirements", courseRequirementRoutes);
 app.use("/api/orders/private", orderRoutes);
 app.use("/api/stripe", stripeRoutes);
 
