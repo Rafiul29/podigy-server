@@ -197,7 +197,7 @@ const getAllCourses = async (req, res) => {
     }
 
     await Promise.resolve().then(async () => {
-      const getallCourses = await courseQuery.populate("category");
+      const getallCourses = await courseQuery.populate("category videos");
       res.json(getallCourses);
     });
   } catch (error) {

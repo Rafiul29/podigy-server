@@ -28,10 +28,9 @@ const courseSchema=new mongoose.Schema({
   },
   videos:[
     {
-      module:Number,
-      name:String,
-      video_link:String,
-    }
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Video",
+    },
   ],
   category:{
     type:mongoose.Schema.Types.ObjectId,

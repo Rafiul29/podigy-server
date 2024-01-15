@@ -1,44 +1,43 @@
 const Course = require("../models/courses");
+const Include = require("../models/includes");
 
-const addCourseIncludes = async (req, res) => {
-  const {text } = req.body;
-  const {cid}=req.params;
-  if (!text) {
-    res.json({ message: "filed must be filled" });
-    return;
-  }
-  const vaildcourse = await Course.find({ _id: cid });
-  const userId = req.user?._id;
-
-  if (vaildcourse[0]?.userId.toString() !== userId.toString()) {
-    res.status(400).json({ message: "permission denied" });
-    return;
-  }
-  
+const addIncludes = async (req, res) => {
   try {
-    await Promise.resolve().then(async () => {
-      const courseInclues = await Course.findByIdAndUpdate(
-        cid,
-        {
-          $push: {
-            thisCourseIncludes: {
-              text,
-            },
-          },
-        },
-        { new: true }
-      );
-      res.json(courseInclues);
+    const { title } = req.body;
+    if (!title) {
+      res.json({ message: "filed must be fill" });
+      return;
+    }
+    const { cid } = req.params;
+    const findCourse = await Course.findById({ _id: cid });
+    if (!findCourse) {
+      res.json({ message: "course not found" });
+      return;
+    }
+    // create video
+    const include = await Include.create({
+      title,
+      user: req.user?._id,
     });
+
+    include.courses.push(findCourse._id);
+    await include.save();
+
+    // push the  into what You Will Learns into course
+    findCourse.thisCourseIncludes.push(include._id);
+    // resave
+    await findCourse.save();
+
+    res.json(include);
+    return;
   } catch (error) {
     res.status(400).json({
-      message: "courses incules filed  add not successfull",
       error: error.message,
     });
   }
 };
 
-const deleteCourseInclues = async (req, res) => {
+const deleteInclues = async (req, res) => {
   const { inclueId, cid } = req.body;
 
   const vaildcourse = await Course.find({ _id: cid });
@@ -71,6 +70,6 @@ const deleteCourseInclues = async (req, res) => {
 };
 
 module.exports = {
-  addCourseIncludes,
-  deleteCourseInclues,
+  addIncludes,
+  deleteInclues,
 };

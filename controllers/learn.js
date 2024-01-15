@@ -1,40 +1,35 @@
 const Course = require("../models/courses");
-
-const addCourseLearn = async (req, res) => {
-  const { text } = req.body;
-  const {cid} = req.params;
-
-  if (!text) {
-    res.json({ message: "filed must be fill" });
-    return;
-  }
-
-  const vaildcourse = await Course.find({ _id: cid });
-  const userId = req.user?._id;
-
-  if (vaildcourse[0]?.userId.toString() !== userId.toString()) {
-    res.status(400).json({ message: "permission denied" });
-    return;
-  }
-
+const Learn =require("../models/learn")
+const addLearn = async (req, res) => {
   try {
-    await Promise.resolve().then(async () => {
-      const course = await Course.findByIdAndUpdate(
-        {
-          _id: cid,
-          userId: req.userId,
-        },
-        {
-          $push: {
-            whatYouWillLearns: {
-              text,
-            },
-          },
-        },
-        { new: true }
-      );
-      res.json(course);
-    });
+    const { title} = req.body;
+    if (!title) {
+      res.json({ message: "filed must be fill" });
+      return;
+    }
+    const {cid}=req.params;
+    const findCourse=await Course.findById({_id:cid}); 
+    if(!findCourse){
+      res.json({ message: "course not found" });
+      return;
+    }
+    // create video
+    const learn=await Learn.create({
+      title,
+      user: req.user?._id,
+    })
+    
+    learn.courses.push(findCourse._id);
+    await learn.save();
+
+     // push the  into what You Will Learns into course
+     findCourse.whatYouWillLearns.push(learn._id);
+     // resave
+     await findCourse.save();
+
+     res.json(learn);
+     return;
+  
   } catch (error) {
     res.status(400).json({
       message: "courses update not successfull",
@@ -43,7 +38,7 @@ const addCourseLearn = async (req, res) => {
   }
 };
 
-const deleteCourseLearn = async (req, res) => {
+const deleteLearn = async (req, res) => {
   const { learnId, cid } = req.body;
   const vaildcourse = await Course.find({ _id: cid });
   const userId = req.user?._id;
@@ -76,6 +71,6 @@ const deleteCourseLearn = async (req, res) => {
 };
 
 module.exports = {
-  addCourseLearn,
-  deleteCourseLearn,
+  addLearn,
+  deleteLearn,
 };

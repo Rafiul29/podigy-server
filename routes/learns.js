@@ -7,14 +7,14 @@ const isAdmin = require("../middlewares/isAdmin");
 const isAdminOrDev=require("../middlewares/isAdminOrDev")
 
 const {
-  addCourseLearn,
-  deleteCourseLearn,
-} = require("../controllers/courseLearns");
+  addLearn,
+  deleteLearn,
+} = require("../controllers/learn");
 
 // add new item
-router.put("/add/:cid",isAuthenticated,isAdminOrDev,addCourseLearn);
+router.post("/add/:cid",isAuthenticated,isAdminOrDev,addLearn);
 
 // delete a item
-router.delete("/delete",isAuthenticated,isAdminOrDev,deleteCourseLearn);
+router.delete("/delete",isAuthenticated,isAdminOrDev,deleteLearn);
 
 module.exports = router;
