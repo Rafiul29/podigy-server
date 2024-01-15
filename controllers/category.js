@@ -9,6 +9,7 @@ const createCategory = async (req, res) => {
 
     if (!name || !image) {
       throw new Error("Filed must be fill");
+      return;
     }
 
     // category exists
@@ -28,8 +29,7 @@ const createCategory = async (req, res) => {
     return;
   } catch (error) {
     res.json({
-      status: "failed",
-      message: error.message,
+      error: error.message,
     });
   }
 };
@@ -41,8 +41,7 @@ const getAllCategory = async (req, res) => {
     res.json(categories);
   } catch (error) {
     res.json({
-      status: "faild",
-      message: error.message,
+      error: error.message,
     });
   }
 };
@@ -60,8 +59,7 @@ const getSingleCategory = async (req, res) => {
     res.json(category);
   } catch (error) {
     res.json({
-      status: "failed",
-      message: error.message,
+      error: error.message,
     });
   }
 };
@@ -90,8 +88,7 @@ const updateSingleCategory = async (req, res) => {
     res.json(category);
   } catch (error) {
     res.json({
-      status: "failed",
-      message: error.message,
+      error: error.message,
     });
   }
 };
@@ -115,8 +112,7 @@ const deleteSingleCategory = async (req, res) => {
     res.json(category);
   } catch (error) {
     res.json({
-      status: "failed",
-      message: error.message,
+      error: error.message,
     });
   }
 };
@@ -130,7 +126,6 @@ const getAllOwnCategories = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      message: "category not found",
       error: error.message,
     });
   }

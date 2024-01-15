@@ -33,14 +33,13 @@ const createSingleCourse = async (req, res) => {
     !students ||
     !helpLines
   ) {
-    throw new Error(
-      "Must filled the title, description,instructor,coverphoto, video_link price duration rating students helplines"
-    );
+    res.send({error:"All flied must be fill"})
+    return;
   }
-
+  
   try {
     if (!mongoose.Types.ObjectId.isValid(userId)) {
-      res.status(404).json({ message: "User Not found" });
+      res.status(404).json({ error: "User Not found" });
       return;
     }
 
@@ -70,9 +69,9 @@ const createSingleCourse = async (req, res) => {
     // resave
     await categoryFound.save();
     res.json(course);
+    return;
   } catch (error) {
     res.status(400).json({
-      message: "Create a new courses not successfully",
       error: error.message,
     });
   }

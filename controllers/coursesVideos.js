@@ -34,7 +34,6 @@ const addCourseVideo = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      message: "courses video filed  add",
       error: error.message,
     });
   }
@@ -66,7 +65,6 @@ const deleteCourseVideo = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      message: "courses video filed delete",
       error: error.message,
     });
   }
