@@ -20,11 +20,9 @@ const addVideo = async (req, res) => {
       name,
       video_link,
       user: req.user?._id,
+      courseId:findCourse._id
     })
-    
-    video.courses.push(findCourse._id);
-    await video.save();
-
+  
      // push the  into video into course
      findCourse.videos.push(video._id);
      // resave

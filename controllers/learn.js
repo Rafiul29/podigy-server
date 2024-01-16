@@ -19,8 +19,6 @@ const addLearn = async (req, res) => {
       user: req.user?._id,
     })
     
-    learn.courses.push(findCourse._id);
-    await learn.save();
 
      // push the  into what You Will Learns into course
      findCourse.whatYouWillLearns.push(learn._id);

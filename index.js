@@ -10,8 +10,10 @@ const userRoutes = require("./routes/users");
 const coursesRoutes = require("./routes/courses");
 const videoRoutes=require("./routes/videos")
 const learnRoutes= require("./routes/learns");
-const includesRoutes = require("./routes/Includes");
+const includesRoutes = require("./routes/includes");
+const paymentsDetailsRoutes=require("./routes/paymentsDetails")
 const requirementRoutes = require("./routes/requirement");
+const takeThisCourseRoutes=require("./routes/takeThisCourse")
 const categoriesRoutes = require("./routes/category");
 const orderRoutes = require("./routes/order");
 const stripeRoutes = require("./routes/stripe");
@@ -48,7 +50,9 @@ app.use("/api/categories/private", categoriesRoutes);
 app.use("/api/private/videos", videoRoutes);
 app.use("/api/private/learns", learnRoutes);
 app.use("/api/private/includes",includesRoutes);
+app.use("/api/private/payments-details",paymentsDetailsRoutes);
 app.use("/api/private/requirements", requirementRoutes);
+app.use("/api/private/take-this-course", takeThisCourseRoutes);
 app.use("/api/orders/private", orderRoutes);
 app.use("/api/stripe", stripeRoutes);
 

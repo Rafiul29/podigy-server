@@ -10,12 +10,10 @@ const learnSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-  courses: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Course",
-    },
-  ],
+  courseId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Course",
+  },
 },{timestamps:true});
 
 const Learn=mongoose.model("Learn",learnSchema);

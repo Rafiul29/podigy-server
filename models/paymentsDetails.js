@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const includesSchema = new mongoose.Schema(
+const paymentsDetailsSchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -19,5 +19,5 @@ const includesSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Include = mongoose.model("Include", includesSchema);
-module.exports = Include;
+const paymentsDetails = mongoose.model("PaymentsDetail", paymentsDetailsSchema);
+module.exports = paymentsDetails;

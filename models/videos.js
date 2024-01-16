@@ -18,12 +18,10 @@ const videoSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-  courses: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Course",
-    },
-  ],
+  courseId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Course",
+  },
 },{timestamps:true});
 
 const Video=mongoose.model("Video",videoSchema);

@@ -1,8 +1,8 @@
 const Course = require("../models/courses");
-const Requirement = require("../models/requirement");
+const TakeThisCourse = require("../models/takeThisCourse");
 
-const addRequirement = async (req, res) => {
-  console.log("first")
+const addTakeThisCourse = async (req, res) => {
+
   try{
     const { title} = req.body;
     if (!title) {
@@ -15,18 +15,18 @@ const addRequirement = async (req, res) => {
       res.json({ message: "course not found" });
       return;
     }
-    // create video
-    const requirement=await Requirement.create({
+    // create take this course
+    const takeThiscourse=await TakeThisCourse.create({
       title,
       user: req.user?._id,
       courseId:findCourse._id
     })
     
      // push the  into what You Will Learns into course
-     findCourse.requirements.push(requirement._id);
+     findCourse.whoShouldTakeThisCourse.push(takeThiscourse._id);
      // resave
      await findCourse.save();
-     res.json(requirement);
+     res.json(takeThiscourse);
      
      return;
   
@@ -37,7 +37,7 @@ const addRequirement = async (req, res) => {
   }
 };
 
-const deleteRequirement = async (req, res) => {
+const deleteTakeThisCourse  = async (req, res) => {
   try {
     const { title} = req.body;
     if (!title) {
@@ -75,6 +75,6 @@ const deleteRequirement = async (req, res) => {
 };
 
 module.exports = {
-  addRequirement,
-  deleteRequirement,
+  addTakeThisCourse,
+  deleteTakeThisCourse,
 };

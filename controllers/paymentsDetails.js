@@ -1,31 +1,35 @@
 const Course = require("../models/courses");
-const Include = require("../models/includes");
+const PaymentDetails =require("../models/paymentsDetails")
 
-const addIncludes = async (req, res) => {
+const addPaymentsDetails = async (req, res) => {
   try {
-    const { title } = req.body;
+    const { title} = req.body;
     if (!title) {
       res.json({ message: "filed must be fill" });
       return;
     }
-    const { cid } = req.params;
-    const findCourse = await Course.findById({ _id: cid });
-    if (!findCourse) {
+    
+    const {cid}=req.params;
+    const findCourse=await Course.findById({_id:cid}); 
+    if(!findCourse){
       res.json({ message: "course not found" });
       return;
     }
     // create video
-    const include = await Include.create({
+    const paymentsDetails=await PaymentDetails.create({
       title,
       user: req.user?._id,
       courseId:findCourse._id
-    });
+    })
+    
 
-    // resave
-    await findCourse.save();
-
-    res.json(include);
-    return;
+     // push the  into what You Will Learns into course
+     findCourse.payments.push(paymentsDetails._id);
+     // resave
+     await findCourse.save();
+     res.json(paymentsDetails);
+     return;
+  
   } catch (error) {
     res.status(400).json({
       error: error.message,
@@ -33,9 +37,8 @@ const addIncludes = async (req, res) => {
   }
 };
 
-const deleteInclues = async (req, res) => {
-  const { inclueId, cid } = req.body;
-
+const deletePaymentsDetails = async (req, res) => {
+  const { learnId, cid } = req.body;
   const vaildcourse = await Course.find({ _id: cid });
   const userId = req.user?._id;
 
@@ -50,7 +53,7 @@ const deleteInclues = async (req, res) => {
         { _id: cid },
         {
           $pull: {
-            thisCourseIncludes: { _id: inclueId },
+            whatYouWillLearns: { _id: learnId },
           },
         }
       );
@@ -59,13 +62,14 @@ const deleteInclues = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      message: "courses inclues filed delete not successfull",
+      message:
+        "courses deleteCourseRequiremcourseent whatYouWillLearns filed update not successfull",
       error: error.message,
     });
   }
 };
 
 module.exports = {
-  addIncludes,
-  deleteInclues,
+  addPaymentsDetails,
+  deletePaymentsDetails
 };
