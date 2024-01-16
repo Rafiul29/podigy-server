@@ -5,7 +5,7 @@ const { default: mongoose } = require("mongoose");
 
 const createCategory = async (req, res) => {
   try {
-    const { name,image } = req.body;
+    const { name,image,workshops } = req.body;
 
     if (!name || !image) {
       throw new Error("Filed must be fill");
@@ -23,6 +23,7 @@ const createCategory = async (req, res) => {
     const category = await Category.create({
       name,
       image,
+      workshops,
       user: req.user?._id,
     });
     res.json(category);

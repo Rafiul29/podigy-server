@@ -20,7 +20,8 @@ const addIncludes = async (req, res) => {
       user: req.user?._id,
       courseId:findCourse._id
     });
-
+  // push the  include into course
+  findCourse.thisCourseIncludes.push(include._id);
     // resave
     await findCourse.save();
 

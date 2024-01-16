@@ -9,6 +9,10 @@ const categorySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  workshops:{
+    type: Number,
+    required: true,
+  },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

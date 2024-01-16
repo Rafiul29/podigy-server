@@ -47,28 +47,33 @@ const courseSchema=new mongoose.Schema({
   },
   whatYouWillLearns:[
     {
-      text:String,
-    }
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Learn",
+    },
   ],
   thisCourseIncludes:[
     {
-      text:String,
-    }
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Include",
+    },
   ],
   requirements:[
     {
-      text:String,
-    }
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Requirement",
+    },
   ],
   whoShouldTakeThisCourse:[
     {
-      text:String,
-    }
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "TakeThisCourse",
+    },
   ],
   payments:[
     {
-      text:String,
-    }
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "PaymentsDetail",
+    },
   ],
   rating:{
     type:Number,
