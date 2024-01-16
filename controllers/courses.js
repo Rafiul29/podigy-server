@@ -142,7 +142,7 @@ const getSingleCourse = async (req, res) => {
   }
   try {
     await Promise.resolve().then(async () => {
-      const singleCourses = await Course.findById(id).populate("category");
+      const singleCourses = await Course.findById(id).populate("category videos whatYouWillLearns thisCourseIncludes requirements whoShouldTakeThisCourse payments");
       res.json(singleCourses);
     });
   } catch (error) {
