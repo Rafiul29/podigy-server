@@ -158,10 +158,10 @@ const getSingleCourse = async (req, res) => {
 // delete a single course
 const deleteSingleCourse = async (req, res) => {
   const id = req.params.cid;
-  // if (!mongoose.Types.ObjectId.isValid(id)) {
-  //   res.status(404).json({ message: "courses not found" });
-  //   return;
-  // }
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    res.status(404).json({ message: "courses not found" });
+    return;
+  }
   try {
     const course = await Course.findByIdAndDelete(id);
 
