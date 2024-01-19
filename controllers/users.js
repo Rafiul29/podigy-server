@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const userRoleUpdate = async (req, res) => {
   try {
     const { userId, role } = req.body;
-    
+
     if (!role) {
       throw new Error("Must be select role");
     }
@@ -23,7 +23,6 @@ const userRoleUpdate = async (req, res) => {
       );
       res.json(user);
     });
-
   } catch (error) {
     res.status(400).json({
       message: "user  role update not succssfully",
@@ -65,9 +64,10 @@ const updateAnUser = async (req, res) => {
     const userId = req.user?._id;
 
     if (!mongoose.Types.ObjectId.isValid(userId)) {
-      res.status(404).json({ message: "user not found" });
+      res.status(404).json({ message: "user not found1" });
       return;
     }
+    
 
     await Promise.resolve().then(async () => {
       const user = await User.findByIdAndUpdate(
@@ -78,10 +78,16 @@ const updateAnUser = async (req, res) => {
       res.json(user);
     });
   } catch (error) {
-    res.status(400).json({
-      message: "user not found",
-      error: error.message,
-    });
+    if (error.code === 11000) {
+      res.status(404).json({
+        error:"duplicate key error collection: podigy.users index",
+      });
+    } else {
+      res.status(400).json({
+        message: "user not found",
+        error: error.message,
+      });
+    }
   }
 };
 
