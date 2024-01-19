@@ -16,9 +16,15 @@ const userRegistration = async (req, res) => {
 
     res.status(200).json({ user, token });
   } catch (error) {
-    res.status(404).json({
-      error: error.message,
-    });
+    if (error.code === 11000) {
+      res.status(404).json({
+        error: "phone number already in used",
+      });
+    } else {
+      res.status(404).json({
+        error: error.message,
+      });
+    }
   }
 };
 
@@ -35,7 +41,7 @@ const userLogin = async (req, res) => {
   }
 };
 
-module.exports={
+module.exports = {
   userRegistration,
   userLogin,
-}
+};

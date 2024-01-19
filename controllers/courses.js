@@ -33,10 +33,10 @@ const createSingleCourse = async (req, res) => {
     !students ||
     !helpLines
   ) {
-    res.send({error:"All flied must be fill"})
+    res.send({ error: "All flied must be fill" });
     return;
   }
-  
+
   try {
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       res.status(404).json({ error: "User Not found" });
@@ -142,7 +142,9 @@ const getSingleCourse = async (req, res) => {
   }
   try {
     await Promise.resolve().then(async () => {
-      const singleCourses = await Course.findById(id).populate("category videos whatYouWillLearns thisCourseIncludes requirements whoShouldTakeThisCourse payments");
+      const singleCourses = await Course.findById(id).populate(
+        "category videos whatYouWillLearns thisCourseIncludes requirements whoShouldTakeThisCourse payments"
+      );
       res.json(singleCourses);
     });
   } catch (error) {
@@ -162,7 +164,7 @@ const deleteSingleCourse = async (req, res) => {
   }
   try {
     const course = await Course.findByIdAndDelete(id);
-    console.log(course._id);
+
     // delete category model course  id
     await Category.findOneAndUpdate(course.category, {
       $pull: {
@@ -183,6 +185,7 @@ const getAllCourses = async (req, res) => {
   try {
     // query
     let courseQuery = Course.find();
+
     //filter by name
     if (req.query.title) {
       courseQuery = courseQuery.find({
@@ -197,12 +200,14 @@ const getAllCourses = async (req, res) => {
     }
 
     await Promise.resolve().then(async () => {
-      const getallCourses = await courseQuery.populate("category videos whatYouWillLearns thisCourseIncludes requirements whoShouldTakeThisCourse payments");
+      const getallCourses = await courseQuery.populate(
+        "category videos whatYouWillLearns thisCourseIncludes requirements whoShouldTakeThisCourse payments"
+      );
       res.json(getallCourses);
     });
   } catch (error) {
     res.status(400).json({
-      message: " courses course not found",
+      message: "courses course not found",
       error: error.message,
     });
   }
@@ -214,12 +219,14 @@ const getAllOwnCourses = async (req, res) => {
     await Promise.resolve().then(async () => {
       const getAllOwnCourse = await Course.find({
         userId: req.user._id,
-      }).populate("category");
+      }).populate(
+        "category videos whatYouWillLearns thisCourseIncludes requirements whoShouldTakeThisCourse"
+      );
       res.json(getAllOwnCourse);
     });
   } catch (error) {
     res.status(400).json({
-      message: " courses course not found",
+      message: " courses course not found ",
       error: error.message,
     });
   }

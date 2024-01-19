@@ -64,7 +64,7 @@ UserSchema.statics.register = async function (
   }
 
   if (!validator.isEmail(email)) {
-    throw new Error("Invalid email");
+    throw new Error("Invalid email address");
   }
 
   if (!validator.isStrongPassword(password)) {
