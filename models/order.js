@@ -9,7 +9,7 @@ const orderSchema = new mongoose.Schema(
     },
     course: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
+        required:true,
         ref: "Course",
     },
     subtotal: { type: Number, required: true },
