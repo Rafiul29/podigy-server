@@ -22,8 +22,6 @@ router.delete("/:cid", isAuthenticated, isAdminOrDev, deleteSingleCategory);
 // update single category
 router.put("/:cid", isAuthenticated, isAdminOrDev, updateSingleCategory);
 
-
-
 // getAllOwnCourses
 router.get("/own-category", isAuthenticated, isAdminOrDev, getAllOwnCategories);
 
