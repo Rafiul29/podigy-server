@@ -17,6 +17,9 @@ const takeThisCourseRoutes = require("./routes/takeThisCourse");
 const categoriesRoutes = require("./routes/category");
 const orderRoutes = require("./routes/order");
 const stripeRoutes = require("./routes/stripe");
+// product
+const productRoutes = require("./routes/products");
+
 // express app
 const app = express();
 
@@ -55,6 +58,7 @@ app.use("/api/private/requirements", requirementRoutes);
 app.use("/api/private/take-this-course", takeThisCourseRoutes);
 app.use("/api/orders/private", orderRoutes);
 app.use("/api/stripe", stripeRoutes);
+app.use("/api/private/products", productRoutes);
 
 // server listen
 const PORT = process.env.PORT || 4000;
