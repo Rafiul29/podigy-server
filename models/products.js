@@ -12,27 +12,27 @@ const productSchema = new mongoose.Schema(
       required: true,
     },
     image_link: {
-        type: String,
-        required: true,
-      },
+      type: String,
+      required: true,
+    },
     specification: {
-        type: String,
-        required: true,
-      },
-    circitboard_link:{
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
-    price:{
-      type:Number,
-      required:true,
+    circuitboard_link: {
+      type: String,
+      required: true,
     },
-    reviews:{
-      type:Number,
-      required:true,
+    price: {
+      type: Number,
+      required: true,
+    },
+    reviews: {
+      type: Number,
+      required: true,
     },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Product",productSchema);
+module.exports = mongoose.model("Product", productSchema);

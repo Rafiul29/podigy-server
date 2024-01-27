@@ -5,14 +5,14 @@ const Product = require("../models/products");
 const createSingleProduct = async (req, res) => {
   const userId = req.user?._id;
 
-  const { title, specification, image_link, cirboard_link, price, reviews } =
+  const { title, specification, image_link, circuitboard_link, price, reviews } =
     req.body;
 
   if (
     !title ||
     !specification ||
     !image_link ||
-    !cirboard_link ||
+    !circuitboard_link ||
     !price ||
     !reviews
   ) {
@@ -34,7 +34,7 @@ const createSingleProduct = async (req, res) => {
     }
 
     //create a courses
-    const product = await Course.create({ userId, ...req.body });
+    const product = await Product.create({ userId, ...req.body });
 
     //response
     res.json(product);
@@ -49,14 +49,14 @@ const createSingleProduct = async (req, res) => {
 // update a single course
 const updateProduct = async (req, res) => {
   try {
-    const { title, specification, image_link, cirboard_link, price, reviews } =
+    const {title, specification, image_link, circuitboard_link, price, reviews } =
       req.body;
 
     if (
       !title ||
       !specification ||
       !image_link ||
-      !cirboard_link ||
+      !circuitboard_link ||
       !price ||
       !reviews
     ) {
@@ -64,14 +64,14 @@ const updateProduct = async (req, res) => {
         "Must filled the title, specification,image_link,cirboard_link, price duration"
       );
     }
-    const pid = req.params.pid;userId
+    const pid = req.params.pid;
     if (!mongoose.Types.ObjectId.isValid(pid)) {
       res.status(404).json({ message: "product update not successfully" });
       return;
     }
 
     await Promise.resolve().then(async () => {
-      const updateProduct = await Course.findByIdAndUpdate(
+      const updateProduct = await Product.findByIdAndUpdate(
         { _id: pid },
         { ...req.body },
         { new: true }
@@ -88,14 +88,14 @@ const updateProduct = async (req, res) => {
 
 // get a single course
 const getSingleProduct = async (req, res) => {
-  const id = req.params.pid;
-  if (!mongoose.Types.ObjectId.isValid(pid)) {
+  const _id = req.params.pid;
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
     res.status(404).json({ message: "product not found" });
     return;
   }
   try {
     await Promise.resolve().then(async () => {
-      const singleCourses = await Course.findById(id)
+      const singleCourses = await Product.findById(_id)
       res.json(singleCourses);
     });
   } catch (error) {
@@ -114,8 +114,8 @@ const deleteSingleProduct = async (req, res) => {
     return;
   }
   try {
-    const course = await Course.findByIdAndDelete(id);
-    res.json(course);
+    const product = await Product.findByIdAndDelete(id);
+    res.json(product);
   } catch (error) {
     res.status(400).json({
       message: "delete product not successfull",
